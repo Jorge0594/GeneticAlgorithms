@@ -30,7 +30,7 @@ public class SelectionAlgorithm {
             tournament[i] = individuals[rand.nextInt(individuals.length)];
         }
 
-        return getBestIndividual(tournament);
+        return getBestIndividualIndex(tournament);
     }
 
 	/*private void calculateSum() {
@@ -45,10 +45,14 @@ public class SelectionAlgorithm {
 		return num;
 	}*/
 
-    private int getBestIndividual(Individual[] group) {
+	public Individual getBestIndividual(Individual[] group){
+	    return group[getBestIndividualIndex(group)];
+    }
+
+    private int getBestIndividualIndex(Individual[] group) {
         int index = 0;
         for (int i = 0; i < group.length; i++) {
-            if (group[i].getFitness() > group[index].getFitness()) {
+            if (group[i].getFitness() < group[index].getFitness()) {
                 index = i;
             }
         }

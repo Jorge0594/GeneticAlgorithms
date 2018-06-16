@@ -5,8 +5,8 @@ public class SystemEquation {
     private double[][] equationTerms;
     private double[] solutions;
 
-    public SystemEquation(int nVariables, int nEquations) {
-        equationTerms = new double[nVariables][nEquations];
+    public SystemEquation(int nEquations, int nVariables) {
+        equationTerms = new double[nEquations][nVariables];
         solutions = new double[nEquations];
     }
 
@@ -36,6 +36,14 @@ public class SystemEquation {
         }
     }
 
+    public int getNumberOfEquations(){
+        return equationTerms.length;
+    }
+
+    public int getNumOfVariables(){
+        return equationTerms[0].length;
+    }
+
     public void calculateFitness(Individual ind){
 
         double fitness = 0;
@@ -43,11 +51,13 @@ public class SystemEquation {
         for (int i = 0; i < equationTerms.length; i++) {
             diference = 0;
             for (int j = 0; j < equationTerms[i].length; j++) {
+                //System.out.println("RESULT: " + equationTerms[i][j] + " * " + ind.getGenome()[j] + " = " + (equationTerms[i][j] * ind.getGenome()[j]));
                 diference+= (equationTerms[i][j] * ind.getGenome()[j]);
             }
             fitness+= Math.abs(solutions[i] - diference);
         }
 
         ind.setFitness(fitness);
+        System.out.println(ind);
     }
 }

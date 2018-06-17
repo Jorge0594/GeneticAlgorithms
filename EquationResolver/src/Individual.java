@@ -24,16 +24,16 @@ public class Individual implements Comparable<Individual> {
     }
 
     public void setFitness(double fitness) {
-        this.fitness = fitness;
+        this.fitness = EquationSolverUtils.round(fitness, 3);
     }
 
-    public double getRandomValue(double lowRange, double highRange){
+    public double getRandomValue(double lowRange, double highRange) {
         return Math.random() * (highRange - lowRange) + lowRange;
     }
 
     private void initializeGenome(double lowRange, double highRange) {
         for (int i = 0; i < genome.length; i++) {
-            genome[i] =getRandomValue(lowRange, highRange);
+            genome[i] = EquationSolverUtils.round(getRandomValue(lowRange, highRange), EquationSolverConstants.N_DECIMALS);
         }
     }
 

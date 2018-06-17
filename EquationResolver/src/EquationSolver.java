@@ -16,7 +16,7 @@ public class EquationSolver {
         int generation = 1;
         System.out.println("========================INITIALIZE THE RESOLUTION=====================");
         Random rnd = new Random();
-        while(selection.getBestIndividual(population).getFitness() > 0.05 && generation < 1000000){
+        while(selection.getBestIndividual(population).getFitness() > 0 && generation < 1000000){
 
             if(rnd.nextInt(10) < 9){
                 Individual parent1 = population[selection.tournamentSelection(population)];
@@ -75,7 +75,7 @@ public class EquationSolver {
 	    Random rnd = new Random();
 	    int mutationPoint = rnd.nextInt(ind.getGenome().length);
 
-        ind.getGenome()[mutationPoint] = ind.getRandomValue(-10, 10);
+        ind.getGenome()[mutationPoint] = EquationSolverUtils.round(ind.getRandomValue(-10, 10), EquationSolverConstants.N_DECIMALS);
 
         systemEquation.calculateFitness(ind);
 

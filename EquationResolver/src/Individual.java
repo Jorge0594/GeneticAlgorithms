@@ -3,15 +3,12 @@ import java.util.Objects;
 
 public class Individual implements Comparable<Individual> {
 
-    private final double LOW_GENOME_RANGE = -10;
-    private final double HIGH_GENOME_RANGE = 10;
-
     private double[] genome;
     private double fitness;
 
-    public Individual(int genomeSize) {
+    Individual(int genomeSize) {
         genome = new double[genomeSize];
-        initializeGenome(   LOW_GENOME_RANGE, HIGH_GENOME_RANGE);
+        initializeGenome(EquationSolverConstants.LOW_GENOME_RANGE, EquationSolverConstants.HIGH_GENOME_RANGE);
     }
 
     public double[] getGenome() {
@@ -53,16 +50,14 @@ public class Individual implements Comparable<Individual> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Individual that = (Individual) o;
-        return Double.compare(that.LOW_GENOME_RANGE, LOW_GENOME_RANGE) == 0 &&
-                Double.compare(that.HIGH_GENOME_RANGE, HIGH_GENOME_RANGE) == 0 &&
-                Double.compare(that.fitness, fitness) == 0 &&
+        return Double.compare(that.fitness, fitness) == 0 &&
                 Arrays.equals(genome, that.genome);
     }
 
     @Override
     public int hashCode() {
 
-        int result = Objects.hash(LOW_GENOME_RANGE, HIGH_GENOME_RANGE, fitness);
+        int result = Objects.hash(fitness);
         result = 31 * result + Arrays.hashCode(genome);
         return result;
     }

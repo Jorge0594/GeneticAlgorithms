@@ -5,7 +5,7 @@ public class SystemEquation {
     private double[][] equationTerms;
     private double[] solutions;
 
-    public SystemEquation(int nEquations, int nVariables) {
+    SystemEquation(int nEquations, int nVariables) {
         equationTerms = new double[nEquations][nVariables];
         solutions = new double[nEquations];
     }
@@ -58,6 +58,5 @@ public class SystemEquation {
         }
 
         ind.setFitness(fitness);
-        System.out.println(ind);
     }
 }

@@ -1,6 +1,4 @@
-import java.util.Random;
-
-public class MainEcuationResolver {
+public class MainEcuationSolver {
 
 
     public static void main(String[] args) {
@@ -27,7 +25,7 @@ public class MainEcuationResolver {
             e.printStackTrace();
         }
 
-        EquationResolutor resolutor = new EquationResolutor(systemEquation);
+        EquationSolver resolutor = new EquationSolver(systemEquation);
 
         resolutor.startEquationResolver();
 

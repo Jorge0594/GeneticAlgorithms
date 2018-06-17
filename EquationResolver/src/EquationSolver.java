@@ -1,14 +1,12 @@
 import java.util.Random;
 
-public class EquationResolutor {
-
-    private final int POPULATION_SIZE = 10;
+public class EquationSolver {
 
 	private SelectionAlgorithm selection;
 	private SystemEquation systemEquation;
     private Individual[] population;
 	
-	public EquationResolutor(SystemEquation systemEquation){
+	EquationSolver(SystemEquation systemEquation){
 	    this.selection = new SelectionAlgorithm();
 		this.systemEquation = systemEquation ;
 		this.population = initializePopulation(this.systemEquation.getNumOfVariables());
@@ -18,7 +16,7 @@ public class EquationResolutor {
         int generation = 1;
         System.out.println("========================INITIALIZE THE RESOLUTION=====================");
         Random rnd = new Random();
-        while(selection.getBestIndividual(population).getFitness() > 0 && generation < 100000){
+        while(selection.getBestIndividual(population).getFitness() > 0.05 && generation < 1000000){
 
             if(rnd.nextInt(10) < 9){
                 Individual parent1 = population[selection.tournamentSelection(population)];
@@ -49,11 +47,10 @@ public class EquationResolutor {
     }
 	
 	private Individual[] initializePopulation(int nVariables){
-		Individual[] population = new Individual[POPULATION_SIZE];
-		for(int i = 0; i < POPULATION_SIZE; i++){
+		Individual[] population = new Individual[EquationSolverConstants.POPULATION_SIZE];
+		for(int i = 0; i < EquationSolverConstants.POPULATION_SIZE; i++){
 			Individual ind = new Individual(nVariables);
 			population[i] = ind;
-            System.out.println(ind);
 			systemEquation.calculateFitness(ind);
 		}
 		
@@ -61,9 +58,6 @@ public class EquationResolutor {
 	}
 
 	private void crossover(Individual parent1, Individual parent2){
-        System.out.println("INIT CROSSOVER");
-        System.out.println("PARENT1: " + parent1);
-        System.out.println("PARENT2: " + parent2);
 	    Random rnd = new Random();
 	    int crossoverPoint = rnd.nextInt(parent1.getGenome().length);
         double genomeAux;
@@ -75,9 +69,6 @@ public class EquationResolutor {
 
         systemEquation.calculateFitness(parent1);
         systemEquation.calculateFitness(parent2);
-
-        System.out.println("SON1: " + parent1);
-        System.out.println("SON2: " + parent2);
     }
 
     private void mutation(Individual ind){

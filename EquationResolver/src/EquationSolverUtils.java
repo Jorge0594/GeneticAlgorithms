@@ -9,6 +9,6 @@ public class EquationSolverUtils {
 
         long rounded = Math.round(value);
 
-        return rounded / factor;
+        return (double)rounded / factor;
     }
 }

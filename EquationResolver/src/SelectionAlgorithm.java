@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 //CURRENTLY ONLY WORKS FOR TOURNAMENT SELECTION
@@ -6,29 +8,38 @@ public class SelectionAlgorithm {
     SelectionAlgorithm() {
     }
 
-    public int tournamentSelection(Individual[] individuals) {
-        Random rand = new Random();
-        int tournamentSize = (EquationSolverConstants.POPULATION_SIZE / 2);
-        Individual[] tournament = new Individual[tournamentSize];
+    public Individual tournamentSelection(List<Individual> individuals) {
+        Random rnd = new Random();
 
-        for (int i = 0; i < tournamentSize; i++) {
-            tournament[i] = individuals[rand.nextInt(individuals.length)];
-        }
+        Individual parent1 = individuals.get(rnd.nextInt(individuals.size()));
+        Individual parent2 = individuals.get(rnd.nextInt(individuals.size()));
 
-        return getBestIndividualIndex(tournament);
+        return parent1.getFitness() > parent2.getFitness() ? parent1 : parent2;
     }
 
-	public Individual getBestIndividual(Individual[] group){
-	    return group[getBestIndividualIndex(group)];
-    }
 
-    private int getBestIndividualIndex(Individual[] group) {
-        int index = 0;
-        for (int i = 0; i < group.length; i++) {
-            if (group[i].getFitness() < group[index].getFitness()) {
-                index = i;
+    public Individual getBestIndividual(List<Individual> group) {
+        Individual individualAux = group.get(0);
+
+        for (Individual individual : group) {
+            if (individualAux.getFitness() > individual.getFitness()) {
+                individualAux = individual;
             }
         }
-        return index;
+
+        return individualAux;
+    }
+
+    public List<Individual> elitism(List<Individual> population, int nIndividuals) {
+        List<Individual> elitismGroup = new ArrayList<>(nIndividuals);
+        Individual individualAux;
+
+        for (int i = 0; i < nIndividuals; i++) {
+            individualAux = getBestIndividual(population);
+            population.remove(individualAux);
+            elitismGroup.add(individualAux);
+        }
+
+        return elitismGroup;
     }
 }

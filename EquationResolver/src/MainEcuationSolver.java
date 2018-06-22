@@ -28,13 +28,14 @@ public class MainEcuationSolver {
         try {
             systemEquation.setEquationTerms(equation);
             systemEquation.setSolutions(solutions);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        EquationSolver resolutor = new EquationSolver(systemEquation);
+        EquationSolver solver = new EquationSolver(systemEquation);
 
-        resolutor.startEquationResolver();
+        solver.startEquationResolver();
+
 
     }
 
